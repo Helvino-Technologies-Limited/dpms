@@ -91,3 +91,12 @@ export const prescriptionAPI = {
   list: (params) => api.get('/prescriptions', { params }),
   getByPatient: (patientId, params) => api.get(`/prescriptions/patient/${patientId}`, { params }),
 };
+
+export const superAdminAPI = {
+  getStats: () => api.get('/super-admin/stats'),
+  listTenants: () => api.get('/super-admin/tenants'),
+  getTenant: (id) => api.get(`/super-admin/tenants/${id}`),
+  updateStatus: (id, status) => api.put(`/super-admin/tenants/${id}/status`, null, { params: { status } }),
+  extendTrial: (id, days) => api.put(`/super-admin/tenants/${id}/extend-trial`, null, { params: { days } }),
+  deleteTenant: (id) => api.delete(`/super-admin/tenants/${id}`),
+};

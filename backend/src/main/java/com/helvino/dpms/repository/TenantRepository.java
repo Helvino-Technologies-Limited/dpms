@@ -14,4 +14,6 @@ public interface TenantRepository extends JpaRepository<Tenant, Long> {
     boolean existsByClinicName(String clinicName);
     List<Tenant> findByStatus(TenantStatus status);
     List<Tenant> findByIsActive(Boolean isActive);
+    List<Tenant> findAllByOrderByCreatedAtDesc();
+    long countByStatus(TenantStatus status);
 }

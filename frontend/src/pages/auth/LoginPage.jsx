@@ -32,7 +32,7 @@ export default function LoginPage() {
       const { accessToken, ...user } = res.data.data;
       setAuth(user, accessToken);
       toast.success(`Welcome back, ${user.fullName}!`);
-      navigate('/dashboard');
+      navigate(user.role === 'SUPER_ADMIN' ? '/super-admin' : '/dashboard');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Login failed');
     } finally {

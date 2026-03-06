@@ -7,6 +7,9 @@ import LandingPage from './pages/landing/LandingPage';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import AppLayout from './components/layout/AppLayout';
+import SuperAdminLayout from './pages/super-admin/SuperAdminLayout';
+import SuperAdminDashboard from './pages/super-admin/SuperAdminDashboard';
+import TenantsManagementPage from './pages/super-admin/TenantsManagementPage';
 import DashboardPage from './pages/dashboard/DashboardPage';
 import PatientsPage from './pages/patients/PatientsPage';
 import AppointmentsPage from './pages/appointments/AppointmentsPage';
@@ -35,9 +38,17 @@ function ProtectedRoute({ children }) {
   return isAuthenticated ? children : <Navigate to="/login" replace />;
 }
 
+function SuperAdminRoute({ children }) {
+  const { isAuthenticated, user } = useAuthStore();
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  if (user?.role !== 'SUPER_ADMIN') return <Navigate to="/dashboard" replace />;
+  return children;
+}
+
 function PublicRoute({ children }) {
-  const { isAuthenticated } = useAuthStore();
-  return isAuthenticated ? <Navigate to="/dashboard" replace /> : children;
+  const { isAuthenticated, user } = useAuthStore();
+  if (!isAuthenticated) return children;
+  return <Navigate to={user?.role === 'SUPER_ADMIN' ? '/super-admin' : '/dashboard'} replace />;
 }
 
 export default function App() {
@@ -71,6 +82,11 @@ export default function App() {
             <Route path="/branches" element={<BranchesPage />} />
             <Route path="/reports" element={<ReportsPage />} />
             <Route path="/settings" element={<SettingsPage />} />
+          </Route>
+
+          <Route element={<SuperAdminRoute><SuperAdminLayout /></SuperAdminRoute>}>
+            <Route path="/super-admin" element={<SuperAdminDashboard />} />
+            <Route path="/super-admin/tenants" element={<TenantsManagementPage />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
