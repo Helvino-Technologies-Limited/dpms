@@ -1,0 +1,1 @@
+web: java -jar target/dpms-1.0.0.jar
