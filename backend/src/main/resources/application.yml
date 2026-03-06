@@ -1,24 +1,25 @@
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://ep-old-field-ai46w02o-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://ep-old-field-ai46w02o-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require}
     username: ${SPRING_DATASOURCE_USERNAME:neondb_owner}
     password: ${SPRING_DATASOURCE_PASSWORD:npg_jeA9F4VzpymX}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5
-      minimum-idle: 2
+      minimum-idle: 0
       connection-timeout: 30000
-      idle-timeout: 600000
-      max-lifetime: 1800000
+      idle-timeout: 60000
+      max-lifetime: 300000
+      keepalive-time: 120000
       connection-test-query: SELECT 1
 
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
     show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: false
         jdbc:
           lob:
