@@ -1,22 +1,29 @@
-server:
-  port: 8080
-  servlet:
-    context-path: /api
-
 spring:
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/dpms}
-    username: ${DATABASE_USERNAME:postgres}
-    password: ${DATABASE_PASSWORD:password}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://ep-old-field-ai46w02o-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require}
+    username: ${SPRING_DATASOURCE_USERNAME:neondb_owner}
+    password: ${SPRING_DATASOURCE_PASSWORD:npg_jeA9F4VzpymX}
     driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      connection-test-query: SELECT 1
+
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
     show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
+        format_sql: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
   mail:
     host: ${MAIL_HOST:smtp.gmail.com}
     port: ${MAIL_PORT:587}
@@ -29,20 +36,22 @@ spring:
           starttls:
             enable: true
 
+server:
+  port: ${SERVER_PORT:8080}
+
 app:
   jwt:
-    secret: ${JWT_SECRET:dpms-helvino-secret-key-2024-very-long-and-secure-key-for-production}
-    expiration: 86400000  # 24 hours
-    refresh-expiration: 604800000  # 7 days
-  trial-days: 5
-  frontend-url: ${FRONTEND_URL:http://localhost:5173}
-  company:
-    name: Helvino Technologies Limited
-    email: helvinotechltd@gmail.com
-    website: helvino.org
-    phone: "0703445756"
+    secret: ${JWT_SECRET:dpms-helvino-super-secret-jwt-key-2024-must-be-at-least-32-chars}
+    expiration: ${JWT_EXPIRATION:86400000}
+    refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
+  frontend-url: ${FRONTEND_URL:https://dental-eight-taupe.vercel.app}
+  trial:
+    days: 5
+
+cors:
+  allowed-origins: ${FRONTEND_URL:https://dental-eight-taupe.vercel.app}
 
 logging:
   level:
-    com.helvino.dpms: DEBUG
-    org.springframework.security: INFO
+    root: WARN
+    com.helvino.dpms: INFO
