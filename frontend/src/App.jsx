@@ -15,6 +15,7 @@ import PatientsPage from './pages/patients/PatientsPage';
 import AppointmentsPage from './pages/appointments/AppointmentsPage';
 import DentalChartPage from './pages/dental-chart/DentalChartPage';
 import TreatmentsPage from './pages/treatments/TreatmentsPage';
+import ServicesPage from './pages/services/ServicesPage';
 import BillingPage from './pages/billing/BillingPage';
 import InsurancePage from './pages/insurance/InsurancePage';
 import PrescriptionsPage from './pages/prescriptions/PrescriptionsPage';
@@ -74,6 +75,7 @@ export default function App() {
             <Route path="/appointments" element={<AppointmentsPage />} />
             <Route path="/dental-chart" element={<DentalChartPage />} />
             <Route path="/treatments" element={<TreatmentsPage />} />
+            <Route path="/services" element={<ServicesPage />} />
             <Route path="/billing" element={<BillingPage />} />
             <Route path="/insurance" element={<InsurancePage />} />
             <Route path="/prescriptions" element={<PrescriptionsPage />} />

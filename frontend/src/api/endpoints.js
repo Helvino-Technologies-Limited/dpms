@@ -40,6 +40,7 @@ export const serviceAPI = {
   create: (data) => api.post('/services', data),
   update: (id, data) => api.put(`/services/${id}`, data),
   list: () => api.get('/services'),
+  listAll: () => api.get('/services/all'),
   delete: (id) => api.delete(`/services/${id}`),
 };
 

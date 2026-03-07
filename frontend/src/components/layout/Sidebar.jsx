@@ -1,8 +1,9 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Users, Calendar, FileText, CreditCard,
+  Scissors,
   Package, Shield, Stethoscope, Settings, LogOut, Building2,
-  Pill, BarChart3, ChevronRight, Heart
+  Pill, BarChart3, Heart
 } from 'lucide-react';
 import useAuthStore from '../../store/authStore';
 import { cn, getInitials } from '../../utils/helpers';
@@ -13,6 +14,7 @@ const navItems = [
   { icon: Calendar, label: 'Appointments', path: '/appointments' },
   { icon: Stethoscope, label: 'Dental Chart', path: '/dental-chart' },
   { icon: FileText, label: 'Treatments', path: '/treatments' },
+  { icon: Scissors, label: 'Services', path: '/services' },
   { icon: CreditCard, label: 'Billing', path: '/billing' },
   { icon: Shield, label: 'Insurance', path: '/insurance' },
   { icon: Pill, label: 'Prescriptions', path: '/prescriptions' },
