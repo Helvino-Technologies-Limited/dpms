@@ -81,6 +81,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Appointment getAppointment(Long tenantId, Long id) {
         return appointmentRepository.findById(id)
             .filter(a -> a.getTenant().getId().equals(tenantId))

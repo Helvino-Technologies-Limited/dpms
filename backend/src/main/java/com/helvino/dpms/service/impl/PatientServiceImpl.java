@@ -89,6 +89,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Patient getPatient(Long tenantId, Long patientId) {
         return patientRepository.findById(patientId)
             .filter(p -> p.getTenant().getId().equals(tenantId))
@@ -96,6 +97,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PageResponse<Patient> getPatients(Long tenantId, String search, int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by("createdAt").descending());
         Page<Patient> patientPage;
