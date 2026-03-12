@@ -3,6 +3,7 @@ package com.helvino.dpms.security;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -24,11 +25,18 @@ public class JwtUtil {
     @Value("${app.jwt.refresh-expiration}")
     private long refreshExpiration;
 
-    private SecretKey getSigningKey() {
+    private SecretKey signingKey;
+
+    @PostConstruct
+    private void initKey() {
         byte[] keyBytes = Decoders.BASE64.decode(
             java.util.Base64.getEncoder().encodeToString(secret.getBytes())
         );
-        return Keys.hmacShaKeyFor(keyBytes);
+        this.signingKey = Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    private SecretKey getSigningKey() {
+        return signingKey;
     }
 
     public String generateToken(String email, Map<String, Object> claims) {
@@ -63,7 +71,7 @@ public class JwtUtil {
         return claimsResolver.apply(claims);
     }
 
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         return Jwts.parser()
             .verifyWith(getSigningKey())
             .build()
@@ -78,5 +86,9 @@ public class JwtUtil {
 
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
+    }
+
+    public boolean isTokenExpired(Claims claims) {
+        return claims.getExpiration().before(new Date());
     }
 }
