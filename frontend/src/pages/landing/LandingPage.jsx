@@ -6,6 +6,8 @@ import {
   Users, TrendingUp, Clock, Zap, ChevronDown, Menu, X,
   Stethoscope, Activity, Award, Building2
 } from 'lucide-react';
+import Seo from '../../components/Seo';
+import { FAQS } from '../../data/faqs';
 
 const HERO_IMAGES = [
   'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1200&q=80',
@@ -119,6 +121,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white font-sans">
+      <Seo path="/" />
       {/* Navbar */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -178,7 +181,7 @@ export default function LandingPage() {
       <section className="relative min-h-screen flex items-center overflow-hidden">
         {HERO_IMAGES.map((img, i) => (
           <div key={i} className={`absolute inset-0 transition-opacity duration-1000 ${i === currentHero ? 'opacity-100' : 'opacity-0'}`}>
-            <img src={img} alt="" className="w-full h-full object-cover" />
+            <img src={img} alt={i === 0 ? "Dentist treating a patient in a modern dental clinic" : ""} className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-transparent" />
           </div>
         ))}
@@ -440,6 +443,24 @@ export default function LandingPage() {
                   {cta}
                 </Link>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section id="faq" className="py-24 bg-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-gray-900 text-center mb-10">Frequently Asked Questions</h2>
+          <div className="space-y-3">
+            {FAQS.map(({ q, a }) => (
+              <details key={q} className="group bg-gray-50 border border-gray-100 rounded-2xl p-5">
+                <summary className="cursor-pointer list-none flex items-center justify-between gap-4">
+                  <h3 className="font-semibold text-gray-900">{q}</h3>
+                  <ChevronDown className="w-5 h-5 text-primary-600 flex-shrink-0 transition-transform group-open:rotate-180" />
+                </summary>
+                <p className="mt-3 text-gray-600 leading-relaxed">{a}</p>
+              </details>
             ))}
           </div>
         </div>

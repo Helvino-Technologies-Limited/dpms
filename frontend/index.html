@@ -2,12 +2,220 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="DPMS - Dental Practice Management System by Helvino Technologies" />
-    <title>DPMS - Dental Practice Management System</title>
+    <meta name="theme-color" content="#0284c7" />
+
+    <!-- Icons / PWA -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="application-name" content="DPMS" />
+    <meta name="apple-mobile-web-app-title" content="DPMS" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Performance hints -->
+    <link rel="preconnect" href="https://dpms-129-151-160-5.sslip.io" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+
+    <!-- Primary SEO -->
+    <title>DPMS | Dental Practice Management Software in Kenya</title>
+    <meta name="description" content="DPMS is dental practice management software for clinics in Kenya. Manage patients, appointments, digital dental charts, treatment plans, billing, insurance claims, prescriptions and inventory in one secure cloud system. Free 5-day trial." />
+    <meta name="keywords" content="dental practice management software, dental clinic software Kenya, dental management system, dental software Nairobi, dental charting software, dental appointment scheduling, dental billing software, dental clinic management system, DPMS, Helvino" />
+    <meta name="author" content="Helvino Technologies Limited" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://dental.helvino.org/" />
+    <link rel="alternate" hreflang="en-KE" href="https://dental.helvino.org/" />
+    <link rel="alternate" hreflang="x-default" href="https://dental.helvino.org/" />
+    <meta name="geo.region" content="KE" />
+    <meta name="geo.placename" content="Kenya" />
+
+    <!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dental.helvino.org/" />
+    <meta property="og:title" content="DPMS | Dental Practice Management Software in Kenya" />
+    <meta property="og:description" content="Patients, appointments, dental charts, billing, insurance and inventory for dental clinics — in one cloud system. Free 5-day trial." />
+    <meta property="og:image" content="https://dental.helvino.org/og-image.png" />
+    <meta property="og:image:secure_url" content="https://dental.helvino.org/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="DPMS — Dental Practice Management Software for Clinics in Kenya" />
+    <meta property="og:site_name" content="DPMS by Helvino Technologies" />
+    <meta property="og:locale" content="en_KE" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DPMS | Dental Practice Management Software in Kenya" />
+    <meta name="twitter:description" content="Patients, appointments, dental charts, billing, insurance and inventory for dental clinics. Free 5-day trial." />
+    <meta name="twitter:image" content="https://dental.helvino.org/og-image.png" />
+    <meta name="twitter:image:alt" content="DPMS — Dental Practice Management Software for Clinics in Kenya" />
+
+    <!-- Structured data (FAQ answers must match src/data/faqs.js) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://helvino.org/#organization",
+          "name": "Helvino Technologies Limited",
+          "url": "https://helvino.org/",
+          "logo": "https://dental.helvino.org/icon-512.png",
+          "email": "helvinotechltd@gmail.com",
+          "telephone": "+254703445756",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "KE"
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "sales",
+            "telephone": "+254703445756",
+            "email": "helvinotechltd@gmail.com",
+            "areaServed": "KE",
+            "availableLanguage": [
+              "English",
+              "Swahili"
+            ]
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://dental.helvino.org/#website",
+          "url": "https://dental.helvino.org/",
+          "name": "DPMS — Dental Practice Management System",
+          "alternateName": "DPMS",
+          "inLanguage": "en-KE",
+          "publisher": {
+            "@id": "https://helvino.org/#organization"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://dental.helvino.org/#software",
+          "name": "DPMS — Dental Practice Management System",
+          "url": "https://dental.helvino.org/",
+          "image": "https://dental.helvino.org/og-image.png",
+          "applicationCategory": "MedicalApplication",
+          "applicationSubCategory": "Dental Practice Management",
+          "operatingSystem": "Web browser (Windows, macOS, Android, iOS)",
+          "description": "Cloud dental practice management software for clinics in Kenya: patient records, appointment scheduling with reminders, digital tooth-by-tooth charting, treatment plans, billing and POS, insurance claims, prescriptions, inventory, staff, multi-branch and reports.",
+          "featureList": [
+            "Appointment scheduling with SMS reminders",
+            "Digital tooth-by-tooth dental charting",
+            "Treatment planning with cost estimates",
+            "Billing, invoices and receipts with cash, card and mobile money",
+            "Insurance claims with co-payments",
+            "Prescriptions",
+            "Inventory with expiry and reorder alerts",
+            "Staff and multi-branch management",
+            "Revenue, patient and dentist reports"
+          ],
+          "areaServed": "KE",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "5-day free trial",
+              "price": "0",
+              "priceCurrency": "KES"
+            },
+            {
+              "@type": "Offer",
+              "name": "Starter",
+              "price": "2999",
+              "priceCurrency": "KES",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "2999",
+                "priceCurrency": "KES",
+                "unitCode": "MON"
+              }
+            },
+            {
+              "@type": "Offer",
+              "name": "Professional",
+              "price": "6999",
+              "priceCurrency": "KES",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "6999",
+                "priceCurrency": "KES",
+                "unitCode": "MON"
+              }
+            }
+          ],
+          "publisher": {
+            "@id": "https://helvino.org/#organization"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://dental.helvino.org/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is DPMS?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "DPMS is a cloud-based dental practice management system for dental clinics in Kenya. It covers patient records, appointments, digital dental charts, treatment plans, billing, insurance claims, prescriptions, inventory, staff and reports in one place."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How much does DPMS cost?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "All plans start with a free 5-day trial with no credit card required. Starter is KES 2,999 per month, Professional is KES 6,999 per month, and Enterprise pricing for large dental chains is custom."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does DPMS have digital dental charting?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. DPMS has interactive tooth-by-tooth charting where you record conditions, treatments and clinical notes for each tooth, with the full history kept on the patient record."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can DPMS handle insurance claims and mobile money payments?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. You can submit and track insurance claims with co-payments, and take cash, card and mobile money payments with automatic invoices and receipts."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I manage more than one clinic branch?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. DPMS supports multiple branches with centralised reporting and staff allocation. Starter covers one branch, Professional up to three, and Enterprise is unlimited."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is patient data secure?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Each clinic's data is kept separate from every other clinic, staff only see what their role allows, and all traffic is encrypted over HTTPS."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
+    <noscript>
+      <h1>DPMS — Dental Practice Management Software in Kenya</h1>
+      <p>DPMS by Helvino Technologies is cloud dental practice management software for clinics in Kenya: patient records, appointments, digital dental charts, treatment plans, billing, insurance claims, prescriptions, inventory, staff and reports. Free 5-day trial, then from KES 2,999 per month.</p>
+      <p><a href="/register">Register your clinic</a> · <a href="/login">Login</a></p>
+      <p>Contact: 0703445756 · helvinotechltd@gmail.com</p>
+      <p>You need to enable JavaScript to use this app.</p>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

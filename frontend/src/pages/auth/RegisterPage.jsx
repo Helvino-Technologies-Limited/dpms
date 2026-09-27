@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
 import { Heart, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { authAPI } from '../../api/endpoints';
+import Seo from '../../components/Seo';
 import useAuthStore from '../../store/authStore';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
@@ -51,6 +52,11 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex">
+      <Seo
+        title="Register Your Dental Clinic – 5-Day Free Trial"
+        path="/register"
+        description="Register your dental clinic on DPMS and start a free 5-day trial. Appointments, digital dental charts, billing, insurance claims and inventory in one system."
+      />
       <div className="hidden lg:flex flex-1 bg-gradient-to-br from-teal-700 to-primary-600 items-center justify-center p-12 relative overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=800&q=80"

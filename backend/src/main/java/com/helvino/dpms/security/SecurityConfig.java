@@ -59,6 +59,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
             frontendUrl,
+            "https://dental.helvino.org",
             "https://dental-eight-taupe.vercel.app",
             "http://localhost:5173",
             "http://localhost:3000"

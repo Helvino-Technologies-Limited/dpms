@@ -24,6 +24,7 @@ import StaffPage from './pages/staff/StaffPage';
 import BranchesPage from './pages/branches/BranchesPage';
 import ReportsPage from './pages/reports/ReportsPage';
 import SettingsPage from './pages/settings/SettingsPage';
+import Seo from './components/Seo';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,14 +37,16 @@ const queryClient = new QueryClient({
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated } = useAuthStore();
-  return isAuthenticated ? children : <Navigate to="/login" replace />;
+  return isAuthenticated
+    ? <><Seo title="Dashboard" path="/dashboard" noindex />{children}</>
+    : <Navigate to="/login" replace />;
 }
 
 function SuperAdminRoute({ children }) {
   const { isAuthenticated, user } = useAuthStore();
   if (!isAuthenticated) return <Navigate to="/login" replace />;
   if (user?.role !== 'SUPER_ADMIN') return <Navigate to="/dashboard" replace />;
-  return children;
+  return <><Seo title="Super Admin" path="/super-admin" noindex />{children}</>;
 }
 
 function PublicRoute({ children }) {

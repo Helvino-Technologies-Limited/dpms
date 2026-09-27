@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { Heart, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import { authAPI } from '../../api/endpoints';
 import useAuthStore from '../../store/authStore';
+import Seo from '../../components/Seo';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 
@@ -42,6 +43,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex">
+      <Seo title="Login" path="/login" noindex description="Sign in to DPMS to manage patients, appointments, dental charts and billing for your dental clinic." />
       <div className="hidden lg:flex flex-1 bg-gradient-to-br from-primary-700 to-teal-600 items-center justify-center p-12 relative overflow-hidden">
         <div className="absolute inset-0 bg-hero-pattern opacity-20" />
         <img

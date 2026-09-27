@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /$
+Allow: /register
+Allow: /login
+Allow: /assets/
+Allow: /*.png$
+Allow: /*.ico$
+Allow: /manifest.webmanifest
+Disallow: /
+
+Sitemap: https://dental.helvino.org/sitemap.xml
