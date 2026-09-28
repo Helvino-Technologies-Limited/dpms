@@ -21,7 +21,12 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
 
 @Configuration
 @EnableWebSecurity
@@ -34,6 +39,9 @@ public class SecurityConfig {
 
     @Value("${app.frontend-url:https://dental-eight-taupe.vercel.app}")
     private String frontendUrl;
+
+    @Value("${cors.allowed-origins:}")
+    private String extraAllowedOrigins;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -57,13 +65,22 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of(
-            frontendUrl,
+        // Env values may be comma-separated and may carry a trailing slash; browsers send the
+        // Origin header without one, so normalise before matching.
+        Set<String> origins = new LinkedHashSet<>(List.of(
             "https://dental.helvino.org",
+            "https://www.dental.helvino.org",
             "https://dental-eight-taupe.vercel.app",
             "http://localhost:5173",
             "http://localhost:3000"
         ));
+        Stream.of(frontendUrl, extraAllowedOrigins)
+            .flatMap(v -> Arrays.stream(v.split(",")))
+            .map(String::trim)
+            .map(v -> v.replaceAll("/+$", ""))
+            .filter(v -> !v.isEmpty())
+            .forEach(origins::add);
+        config.setAllowedOrigins(new ArrayList<>(origins));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
-import { Heart, Eye, EyeOff, ArrowLeft } from 'lucide-react';
+import { Heart, Eye, EyeOff, ArrowLeft, ShieldCheck, Stethoscope, ClipboardList, Wallet } from 'lucide-react';
 import { authAPI } from '../../api/endpoints';
 import useAuthStore from '../../store/authStore';
 import Seo from '../../components/Seo';
@@ -16,18 +16,28 @@ const schema = z.object({
   password: z.string().min(1, 'Password required'),
 });
 
+const DEMO_ENABLED = import.meta.env.VITE_ENABLE_DEMO !== 'false';
+const DEMO_PASSWORD = import.meta.env.VITE_DEMO_PASSWORD || 'Demo@1234';
+
+const DEMO_ACCOUNTS = [
+  { label: 'Clinic Admin', email: 'admin@demo.helvino.org', icon: ShieldCheck },
+  { label: 'Dentist', email: 'dentist@demo.helvino.org', icon: Stethoscope },
+  { label: 'Receptionist', email: 'reception@demo.helvino.org', icon: ClipboardList },
+  { label: 'Cashier', email: 'cashier@demo.helvino.org', icon: Wallet },
+];
+
 export default function LoginPage() {
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [demoLoading, setDemoLoading] = useState(null);
   const { setAuth } = useAuthStore();
   const navigate = useNavigate();
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = async (data) => {
-    setLoading(true);
+  const login = async (data) => {
     try {
       const res = await authAPI.login(data);
       const { accessToken, ...user } = res.data.data;
@@ -35,10 +45,22 @@ export default function LoginPage() {
       toast.success(`Welcome back, ${user.fullName}!`);
       navigate(user.role === 'SUPER_ADMIN' ? '/super-admin' : '/dashboard');
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Login failed');
-    } finally {
-      setLoading(false);
+      toast.error(err.response?.data?.message || (err.response ? 'Login failed' : 'Cannot reach the server'));
     }
+  };
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    await login(data);
+    setLoading(false);
+  };
+
+  const demoLogin = async (email) => {
+    setDemoLoading(email);
+    setValue('email', email);
+    setValue('password', DEMO_PASSWORD);
+    await login({ email, password: DEMO_PASSWORD });
+    setDemoLoading(null);
   };
 
   return (
@@ -110,6 +132,38 @@ export default function LoginPage() {
               Sign In
             </Button>
           </form>
+
+          {DEMO_ENABLED && (
+            <div className="mt-8">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="flex-1 h-px bg-gray-200" />
+                <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">Try a demo account</span>
+                <div className="flex-1 h-px bg-gray-200" />
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {DEMO_ACCOUNTS.map((account) => {
+                  const { label, email } = account;
+                  const Icon = account.icon;
+                  return (
+                  <button
+                    key={email}
+                    type="button"
+                    onClick={() => demoLogin(email)}
+                    disabled={demoLoading !== null || loading}
+                    title={email}
+                    className="flex items-center gap-2 px-3 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-700 hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <Icon className={`w-4 h-4 shrink-0 ${demoLoading === email ? 'animate-pulse' : ''}`} />
+                    <span className="truncate">{demoLoading === email ? 'Signing in…' : label}</span>
+                  </button>
+                  );
+                })}
+              </div>
+              <p className="text-xs text-gray-400 text-center mt-2">
+                Shared demo clinic — don't enter real patient data.
+              </p>
+            </div>
+          )}
 
           <p className="text-center text-sm text-gray-500 mt-6">
             Don't have an account?{' '}
