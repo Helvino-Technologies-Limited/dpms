@@ -1,0 +1,23 @@
+# Backend (Maven)
+backend/target/
+*.class
+*.jar
+!.mvn/wrapper/maven-wrapper.jar
+
+# Frontend build output (also covered by frontend/.gitignore)
+node_modules/
+frontend/dist/
+
+# Local environment overrides
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# IDE / OS
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db
