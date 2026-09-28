@@ -13,6 +13,7 @@ import com.helvino.dpms.repository.UserRepository;
 import com.helvino.dpms.security.CustomUserDetails;
 import com.helvino.dpms.security.JwtUtil;
 import com.helvino.dpms.service.AuthService;
+import com.helvino.dpms.service.TenantAccessService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,6 +35,7 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
+    private final TenantAccessService tenantAccessService;
 
     @Override
     @Transactional
@@ -88,6 +90,7 @@ public class AuthServiceImpl implements AuthService {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         User user = userDetails.getUser();
         Tenant tenant = user.getTenant();
+        tenantAccessService.assertActive(tenant);
         return buildAuthResponse(user, tenant);
     }
 
@@ -96,6 +99,7 @@ public class AuthServiceImpl implements AuthService {
         String email = jwtUtil.extractUsername(refreshToken);
         User user = userRepository.findByEmail(email)
             .orElseThrow(() -> new BadRequestException("Invalid refresh token"));
+        tenantAccessService.assertActive(user.getTenant());
         return buildAuthResponse(user, user.getTenant());
     }
 

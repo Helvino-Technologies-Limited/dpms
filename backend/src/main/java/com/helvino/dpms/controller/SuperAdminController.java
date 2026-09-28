@@ -113,6 +113,11 @@ public class SuperAdminController {
                     if (tenant.getSubscriptionStartDate() == null) {
                         tenant.setSubscriptionStartDate(LocalDate.now());
                     }
+                    // A lapsed end date would get the tenant expired again by the hourly check
+                    if (tenant.getSubscriptionEndDate() != null
+                            && tenant.getSubscriptionEndDate().isBefore(LocalDate.now())) {
+                        tenant.setSubscriptionEndDate(null);
+                    }
                 }
                 case SUSPENDED, CANCELLED, EXPIRED -> tenant.setIsActive(false);
                 case TRIAL -> tenant.setIsActive(true);
@@ -130,7 +135,9 @@ public class SuperAdminController {
             @RequestParam(defaultValue = "7") int days) {
         Tenant tenant = tenantRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Tenant", id));
-        LocalDate base = tenant.getTrialEndDate() != null ? tenant.getTrialEndDate() : LocalDate.now();
+        LocalDate today = LocalDate.now();
+        LocalDate base = tenant.getTrialEndDate() != null && tenant.getTrialEndDate().isAfter(today)
+            ? tenant.getTrialEndDate() : today;
         tenant.setTrialEndDate(base.plusDays(days));
         tenant.setStatus(TenantStatus.TRIAL);
         tenant.setIsActive(true);

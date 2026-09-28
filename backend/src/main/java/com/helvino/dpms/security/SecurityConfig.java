@@ -1,5 +1,7 @@
 package com.helvino.dpms.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.helvino.dpms.service.TenantAccessService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +38,8 @@ public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
     private final JwtAuthFilter jwtAuthFilter;
+    private final TenantAccessService tenantAccessService;
+    private final ObjectMapper objectMapper;
 
     @Value("${app.frontend-url:https://dental-eight-taupe.vercel.app}")
     private String frontendUrl;
@@ -57,7 +61,8 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             .authenticationProvider(authenticationProvider())
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+            .addFilterAfter(new TenantAccessFilter(tenantAccessService, objectMapper), JwtAuthFilter.class);
 
         return http.build();
     }

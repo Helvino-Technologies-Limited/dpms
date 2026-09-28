@@ -25,6 +25,7 @@ com/helvino/dpms/service/PatientService.class
 com/helvino/dpms/entity/Service$ServiceBuilder.class
 com/helvino/dpms/entity/Invoice$InvoiceBuilder.class
 com/helvino/dpms/security/JwtUtil.class
+com/helvino/dpms/service/TenantAccessService.class
 com/helvino/dpms/entity/InvoiceItem.class
 com/helvino/dpms/service/AuthService.class
 com/helvino/dpms/entity/AuditLog.class
@@ -63,6 +64,7 @@ com/helvino/dpms/dto/request/RegisterClinicRequest.class
 com/helvino/dpms/config/JpaConfig.class
 com/helvino/dpms/repository/BranchRepository.class
 com/helvino/dpms/repository/TreatmentPlanRepository.class
+com/helvino/dpms/exception/TenantInactiveException.class
 com/helvino/dpms/entity/BaseEntity.class
 com/helvino/dpms/entity/Tenant$TenantBuilder.class
 com/helvino/dpms/entity/PrescriptionItem.class
@@ -72,6 +74,7 @@ com/helvino/dpms/controller/SupplierController.class
 com/helvino/dpms/config/DemoDataSeeder.class
 com/helvino/dpms/repository/PatientRepository.class
 com/helvino/dpms/entity/DentalChart$DentalChartBuilder.class
+com/helvino/dpms/security/TenantAccessFilter$CachedResult.class
 com/helvino/dpms/config/JacksonConfig.class
 com/helvino/dpms/entity/Supplier.class
 com/helvino/dpms/repository/InsuranceClaimRepository.class
@@ -79,6 +82,8 @@ com/helvino/dpms/dto/request/UserRequest.class
 com/helvino/dpms/controller/AppointmentController.class
 com/helvino/dpms/config/DemoDataSeeder$DemoUser.class
 com/helvino/dpms/repository/AppointmentRepository.class
+com/helvino/dpms/security/TenantAccessFilter.class
+com/helvino/dpms/service/TenantAccessService$1.class
 com/helvino/dpms/entity/Inventory.class
 com/helvino/dpms/entity/Branch$BranchBuilder.class
 com/helvino/dpms/enums/Gender.class

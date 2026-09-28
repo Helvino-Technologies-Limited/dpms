@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
-import { Heart, Eye, EyeOff, ArrowLeft, ShieldCheck, Stethoscope, ClipboardList, Wallet } from 'lucide-react';
+import { Heart, Eye, EyeOff, ArrowLeft, ShieldCheck, Stethoscope, ClipboardList, Wallet, AlertTriangle } from 'lucide-react';
 import { authAPI } from '../../api/endpoints';
 import useAuthStore from '../../store/authStore';
 import Seo from '../../components/Seo';
@@ -30,6 +30,11 @@ export default function LoginPage() {
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
   const [demoLoading, setDemoLoading] = useState(null);
+  const [notice, setNotice] = useState(() => {
+    const msg = sessionStorage.getItem('dpms_login_notice');
+    sessionStorage.removeItem('dpms_login_notice');
+    return msg;
+  });
   const { setAuth } = useAuthStore();
   const navigate = useNavigate();
 
@@ -45,7 +50,12 @@ export default function LoginPage() {
       toast.success(`Welcome back, ${user.fullName}!`);
       navigate(user.role === 'SUPER_ADMIN' ? '/super-admin' : '/dashboard');
     } catch (err) {
-      toast.error(err.response?.data?.message || (err.response ? 'Login failed' : 'Cannot reach the server'));
+      const message = err.response?.data?.message || (err.response ? 'Login failed' : 'Cannot reach the server');
+      if (err.response?.data?.errors?.code === 'TENANT_INACTIVE') {
+        setNotice(message);
+      } else {
+        toast.error(message);
+      }
     }
   };
 
@@ -98,6 +108,13 @@ export default function LoginPage() {
 
           <h1 className="font-display text-2xl font-bold text-gray-900 mb-1">Welcome back</h1>
           <p className="text-gray-500 text-sm mb-8">Sign in to your clinic dashboard</p>
+
+          {notice && (
+            <div className="flex gap-3 p-3 mb-6 rounded-xl border border-amber-200 bg-amber-50 text-sm text-amber-800">
+              <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
+              <p>{notice}</p>
+            </div>
+          )}
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <Input

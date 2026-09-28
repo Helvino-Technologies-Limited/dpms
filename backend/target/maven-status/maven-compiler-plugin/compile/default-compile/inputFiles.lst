@@ -82,6 +82,7 @@
 /home/kevob/dpms/backend/src/main/java/com/helvino/dpms/exception/BadRequestException.java
 /home/kevob/dpms/backend/src/main/java/com/helvino/dpms/entity/Patient.java
 /home/kevob/dpms/backend/src/main/java/com/helvino/dpms/entity/Branch.java
+/home/kevob/dpms/backend/src/main/java/com/helvino/dpms/service/TenantAccessService.java
 /home/kevob/dpms/backend/src/main/java/com/helvino/dpms/util/NumberGenerator.java
 /home/kevob/dpms/backend/src/main/java/com/helvino/dpms/dto/request/RegisterClinicRequest.java
 /home/kevob/dpms/backend/src/main/java/com/helvino/dpms/controller/InvoiceController.java
@@ -90,8 +91,10 @@
 /home/kevob/dpms/backend/src/main/java/com/helvino/dpms/service/AppointmentService.java
 /home/kevob/dpms/backend/src/main/java/com/helvino/dpms/entity/Service.java
 /home/kevob/dpms/backend/src/main/java/com/helvino/dpms/entity/AuditLog.java
+/home/kevob/dpms/backend/src/main/java/com/helvino/dpms/exception/TenantInactiveException.java
 /home/kevob/dpms/backend/src/main/java/com/helvino/dpms/entity/Invoice.java
 /home/kevob/dpms/backend/src/main/java/com/helvino/dpms/service/PatientService.java
 /home/kevob/dpms/backend/src/main/java/com/helvino/dpms/dto/response/AuthResponse.java
+/home/kevob/dpms/backend/src/main/java/com/helvino/dpms/security/TenantAccessFilter.java
 /home/kevob/dpms/backend/src/main/java/com/helvino/dpms/service/impl/AppointmentServiceImpl.java
 /home/kevob/dpms/backend/src/main/java/com/helvino/dpms/dto/request/AppointmentRequest.java

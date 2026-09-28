@@ -1,4 +1,5 @@
 import axios from 'axios';
+import useAuthStore from '../store/authStore';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
@@ -22,9 +23,15 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem('dpms_token');
-      localStorage.removeItem('dpms_user');
+    const { status, data } = error.response || {};
+    const isLoginCall = error.config?.url?.startsWith('/auth/');
+    const tenantInactive = status === 403 && data?.errors?.code === 'TENANT_INACTIVE';
+
+    if (!isLoginCall && (status === 401 || tenantInactive)) {
+      if (tenantInactive) {
+        sessionStorage.setItem('dpms_login_notice', data.message);
+      }
+      useAuthStore.getState().logout();
       window.location.href = '/login';
     }
     return Promise.reject(error);

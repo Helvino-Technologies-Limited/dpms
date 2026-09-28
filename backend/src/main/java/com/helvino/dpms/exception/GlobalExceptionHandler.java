@@ -34,6 +34,16 @@ public class GlobalExceptionHandler {
             .body(ApiResponse.error(ex.getMessage()));
     }
 
+    @ExceptionHandler(TenantInactiveException.class)
+    public ResponseEntity<ApiResponse<Void>> handleTenantInactive(TenantInactiveException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+            .body(ApiResponse.<Void>builder()
+                .success(false)
+                .message(ex.getMessage())
+                .errors(Map.of("code", TenantInactiveException.CODE))
+                .build());
+    }
+
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ApiResponse<Void>> handleAccessDenied(AccessDeniedException ex) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
